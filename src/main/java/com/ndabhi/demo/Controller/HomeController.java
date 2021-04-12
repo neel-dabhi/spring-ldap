@@ -40,17 +40,25 @@ public class HomeController {
         if (isEqualVelocity) {
             Boolean isSameStartPoint = x1.equals(x2);
             if (isSameStartPoint) {
-                return new ResponseModel(requestModel, x1);
+                return new ResponseModel(requestModel, x1, "Kangaroo Collides");
             }
-            return new ResponseModel(requestModel,-1);
+            return new ResponseModel(requestModel,-1,"Kangaroo Does Not Collide");
         } else if (isV1Greater && isRemainderZero) {
+
             int jumps, pos;
             jumps = (x2 - x1) / (v1 - v2);
             pos = (jumps * v1 ) + x1;
-            DBHelper.getInstance().writeDB(requestModel, pos);
-            return new ResponseModel(requestModel,pos);
+
+            Boolean isWriteSuccessful = DBHelper.getInstance().writeDB(requestModel, pos);
+
+            if (isWriteSuccessful){
+                return new ResponseModel(requestModel,pos, "Kangaroo Collides");
+            }else {
+                return new ResponseModel(new RequestModel(0,0,0,0),pos, "Problem Writing Obj to DB");
+            }
+
         } else {
-            return new ResponseModel(requestModel,-1);
+            return new ResponseModel(requestModel,-1, "Kangaroo Does Not Collide");
         }
 
     }

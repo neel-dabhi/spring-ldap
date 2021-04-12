@@ -1,14 +1,16 @@
 package com.ndabhi.demo.Model;
 
 public class ResponseModel {
-    private Integer collision;
     private Integer x1;
     private Integer v1;
     private Integer x2;
     private Integer v2;
+    private Integer collision;
+    private String message;
 
-    public ResponseModel(RequestModel requestModel, Integer position) {
+    public ResponseModel(RequestModel requestModel, Integer position, String message) {
         setCollision(position);
+        setMessage(message);
         setX1(requestModel.getX1());
         setV1(requestModel.getV1());
         setX2(requestModel.getX2());
@@ -74,4 +76,17 @@ public class ResponseModel {
             this.collision = collision;
         }
     }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        if (null == message || message.isBlank()){
+            this.message = "Problem Setting Message";
+        }else {
+            this.message = message;
+        }
+    }
+
 }

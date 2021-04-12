@@ -58,19 +58,10 @@ public class DBService {
 
 
     public List readDB(){
-
-        try{
-            entityManagerFactory = Persistence.createEntityManagerFactory("org.hibernate.rbc.kangaroo");
-            entityManager = entityManagerFactory.createEntityManager();
-            Query query = entityManager.createQuery("SELECT c FROM CollisionsDAO c");
-            return query.getResultList();
-
-        }catch (Exception e){
-
-        }finally {
-            entityManager.close();
-        }
-        return new ArrayList<>();
+        entityManagerFactory = Persistence.createEntityManagerFactory("org.hibernate.rbc.kangaroo");
+        entityManager = entityManagerFactory.createEntityManager();
+        Query query = entityManager.createQuery("SELECT c FROM CollisionsDAO c");
+        return query.getResultList();
     }
 
 

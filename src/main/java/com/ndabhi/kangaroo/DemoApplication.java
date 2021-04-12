@@ -1,4 +1,4 @@
-package com.ndabhi.demo;
+package com.ndabhi.kangaroo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

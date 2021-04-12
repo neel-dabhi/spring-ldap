@@ -1,8 +1,8 @@
-package com.ndabhi.demo.Service;
+package com.ndabhi.kangaroo.Service;
 
 
-import com.ndabhi.demo.Model.CollisionsDAO;
-import com.ndabhi.demo.Model.RequestModel;
+import com.ndabhi.kangaroo.Model.CollisionsDAO;
+import com.ndabhi.kangaroo.Model.RequestModel;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -10,7 +10,6 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,6 +17,7 @@ public class DBService {
     private static final DBService dbHelper = new DBService();
 
     private DBService(){}
+
     EntityManagerFactory entityManagerFactory = null;
     EntityManager entityManager = null;
 

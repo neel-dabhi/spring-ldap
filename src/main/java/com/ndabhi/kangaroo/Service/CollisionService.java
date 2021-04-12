@@ -1,7 +1,7 @@
-package com.ndabhi.demo.Service;
+package com.ndabhi.kangaroo.Service;
 
-import com.ndabhi.demo.Model.RequestModel;
-import com.ndabhi.demo.Model.ResponseModel;
+import com.ndabhi.kangaroo.Model.RequestModel;
+import com.ndabhi.kangaroo.Model.ResponseModel;
 
 
 public class CollisionService {
@@ -18,8 +18,10 @@ public class CollisionService {
 
         if (isEqualVelocity) {
             boolean isSameStartPoint = x1.equals(x2);
+
             if (isSameStartPoint) {
                 boolean isWriteSuccessful = DBService.getInstance().writeDB(requestModel, x1);
+
                 if (isWriteSuccessful){
                     return new ResponseModel(requestModel,x1, "Kangaroo Collides");
                 }else {
@@ -27,6 +29,7 @@ public class CollisionService {
                 }
             }
             return new ResponseModel(requestModel,-1,"Kangaroo Does Not Collide");
+
         } else if (isV1Greater && isRemainderZero) {
 
             int jumps, pos;

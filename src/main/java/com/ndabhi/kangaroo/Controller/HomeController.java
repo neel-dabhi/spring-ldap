@@ -1,9 +1,9 @@
-package com.ndabhi.demo.Controller;
+package com.ndabhi.kangaroo.Controller;
 
-import com.ndabhi.demo.Service.CollisionService;
-import com.ndabhi.demo.Service.DBService;
-import com.ndabhi.demo.Model.RequestModel;
-import com.ndabhi.demo.Model.ResponseModel;
+import com.ndabhi.kangaroo.Service.CollisionService;
+import com.ndabhi.kangaroo.Service.DBService;
+import com.ndabhi.kangaroo.Model.RequestModel;
+import com.ndabhi.kangaroo.Model.ResponseModel;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

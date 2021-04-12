@@ -1,4 +1,4 @@
-package com.ndabhi.demo.Model;
+package com.ndabhi.kangaroo.Model;
 
 public class RequestModel {
     Integer x1;

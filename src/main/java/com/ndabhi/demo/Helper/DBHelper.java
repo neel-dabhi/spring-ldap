@@ -1,8 +1,8 @@
 package com.ndabhi.demo.Helper;
 
 
-import com.ndabhi.demo.Model.Collisions;
-import com.ndabhi.demo.Model.Kangaroo;
+import com.ndabhi.demo.Model.CollisionsDAO;
+import com.ndabhi.demo.Model.RequestModel;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,21 +21,26 @@ public class DBHelper{
     EntityManagerFactory entityManagerFactory = null;
     EntityManager entityManager = null;
 
-    public boolean writeDB(Integer x1, Integer v1, Integer x2, Integer v2, Integer pos){
+    public boolean writeDB(RequestModel requestModel, Integer pos){
+        Integer x1 = requestModel.getX1();
+        Integer v1 = requestModel.getV1();
+        Integer x2 = requestModel.getX2();
+        Integer v2 = requestModel.getV2();
+        CollisionsDAO collisionsDAO;
         try {
             entityManagerFactory = Persistence.createEntityManagerFactory("org.hibernate.rbc.kangaroo");
             entityManager = entityManagerFactory.createEntityManager();
             entityManager.getTransaction().begin();
 
-            Collisions collisions = new Collisions();
-            collisions.setX1(x1);
-            collisions.setV1(v1);
-            collisions.setX2(x2);
-            collisions.setV2(v2);
-            collisions.setPosition(pos);
-            collisions.setTimeStamp(generateTimeStamp());
+            collisionsDAO = new CollisionsDAO();
+            collisionsDAO.setX1(x1);
+            collisionsDAO.setV1(v1);
+            collisionsDAO.setX2(x2);
+            collisionsDAO.setV2(v2);
+            collisionsDAO.setPosition(pos);
+            collisionsDAO.setTimeStamp(generateTimeStamp());
 
-            entityManager.persist(collisions);
+            entityManager.persist(collisionsDAO);
             entityManager.getTransaction().commit();
             return true;
 
@@ -50,12 +55,12 @@ public class DBHelper{
     }
 
 
-    public List<Collisions> readDB(){
+    public List<CollisionsDAO> readDB(){
 
         try{
             entityManagerFactory = Persistence.createEntityManagerFactory("org.hibernate.rbc.kangaroo");
             entityManager = entityManagerFactory.createEntityManager();
-            Query query = entityManager.createQuery("SELECT c FROM Collisions c");
+            Query query = entityManager.createQuery("SELECT c FROM CollisionsDAO c");
             return query.getResultList();
 
         }catch (Exception e){

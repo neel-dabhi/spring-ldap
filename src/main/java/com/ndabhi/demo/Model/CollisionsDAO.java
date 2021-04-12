@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Collisions")
-public class Collisions {
+public class CollisionsDAO {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;

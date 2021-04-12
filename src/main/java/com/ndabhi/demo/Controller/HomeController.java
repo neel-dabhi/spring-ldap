@@ -1,6 +1,7 @@
 package com.ndabhi.demo.Controller;
 
-import com.ndabhi.demo.Helper.DBHelper;
+import com.ndabhi.demo.Service.CollisionService;
+import com.ndabhi.demo.Service.DBService;
 import com.ndabhi.demo.Model.CollisionsDAO;
 import com.ndabhi.demo.Model.RequestModel;
 import com.ndabhi.demo.Model.ResponseModel;
@@ -21,45 +22,13 @@ public class HomeController {
 
     @GetMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<CollisionsDAO> getDBData() {
-        return DBHelper.getInstance().readDB();
+        return DBService.getInstance().readDB();
     }
 
 
     @PostMapping(value = "/submit")
     public ResponseModel getCollisionPoint(@RequestBody RequestModel requestModel) {
-
-        Integer x1 = requestModel.getX1();
-        Integer v1 = requestModel.getV1();
-        Integer x2 = requestModel.getX2();
-        Integer v2 = requestModel.getV2();
-
-        Boolean isEqualVelocity = requestModel.getV1().equals(requestModel.getV2());
-        Boolean isRemainderZero = (requestModel.getX2() - requestModel.getX1()) % (requestModel.getV1() - requestModel.getV2()) == 0;
-        Boolean isV1Greater = requestModel.getV1() > requestModel.getV2();
-
-        if (isEqualVelocity) {
-            Boolean isSameStartPoint = x1.equals(x2);
-            if (isSameStartPoint) {
-                return new ResponseModel(requestModel, x1, "Kangaroo Collides");
-            }
-            return new ResponseModel(requestModel,-1,"Kangaroo Does Not Collide");
-        } else if (isV1Greater && isRemainderZero) {
-
-            int jumps, pos;
-            jumps = (x2 - x1) / (v1 - v2);
-            pos = (jumps * v1 ) + x1;
-
-            Boolean isWriteSuccessful = DBHelper.getInstance().writeDB(requestModel, pos);
-
-            if (isWriteSuccessful){
-                return new ResponseModel(requestModel,pos, "Kangaroo Collides");
-            }else {
-                return new ResponseModel(new RequestModel(0,0,0,0),pos, "Problem Writing Obj to DB");
-            }
-
-        } else {
-            return new ResponseModel(requestModel,-1, "Kangaroo Does Not Collide");
-        }
-
+        CollisionService collisionService = new CollisionService();
+        return collisionService.getCollisionPoint(requestModel);
     }
 }

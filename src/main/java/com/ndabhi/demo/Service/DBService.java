@@ -1,4 +1,4 @@
-package com.ndabhi.demo.Helper;
+package com.ndabhi.demo.Service;
 
 
 import com.ndabhi.demo.Model.CollisionsDAO;
@@ -14,10 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class DBHelper{
-    private static DBHelper dbHelper = new DBHelper();
+public class DBService {
+    private static DBService dbHelper = new DBService();
 
-    private DBHelper(){};
+    private DBService(){};
     EntityManagerFactory entityManagerFactory = null;
     EntityManager entityManager = null;
 
@@ -78,7 +78,7 @@ public class DBHelper{
         return dtf.format(now);
     }
 
-    public static  DBHelper getInstance(){
+    public static DBService getInstance(){
         return dbHelper;
     }
 }

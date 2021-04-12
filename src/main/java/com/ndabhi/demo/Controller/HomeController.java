@@ -2,7 +2,6 @@ package com.ndabhi.demo.Controller;
 
 import com.ndabhi.demo.Service.CollisionService;
 import com.ndabhi.demo.Service.DBService;
-import com.ndabhi.demo.Model.CollisionsDAO;
 import com.ndabhi.demo.Model.RequestModel;
 import com.ndabhi.demo.Model.ResponseModel;
 
@@ -20,8 +19,8 @@ public class HomeController {
     }
 
 
-    @GetMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<CollisionsDAO> getDBData() {
+    @GetMapping(value = "/get-collisions", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List getDBData() {
         return DBService.getInstance().readDB();
     }
 

@@ -15,9 +15,9 @@ import java.util.List;
 
 
 public class DBService {
-    private static DBService dbHelper = new DBService();
+    private static final DBService dbHelper = new DBService();
 
-    private DBService(){};
+    private DBService(){}
     EntityManagerFactory entityManagerFactory = null;
     EntityManager entityManager = null;
 
@@ -49,13 +49,15 @@ public class DBService {
                 entityManager.getTransaction().rollback();
             }
         }finally {
-            entityManager.close();
+            if (null != entityManager){
+                entityManager.close();
+            }
         }
         return false;
     }
 
 
-    public List<CollisionsDAO> readDB(){
+    public List readDB(){
 
         try{
             entityManagerFactory = Persistence.createEntityManagerFactory("org.hibernate.rbc.kangaroo");

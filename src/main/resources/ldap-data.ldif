@@ -22,7 +22,7 @@ objectclass: inetOrgPerson
 cn: Ben Alex
 sn: Alex
 uid: ben
-userPassword: benspassword
+userPassword: ben
 
 dn: uid=bob,ou=people,dc=springframework,dc=org
 objectclass: top
@@ -32,7 +32,7 @@ objectclass: inetOrgPerson
 cn: Bob Hamilton
 sn: Hamilton
 uid: bob
-userPassword: bobspassword
+userPassword: bob
 
 # ROLES
 

@@ -23,7 +23,7 @@ Body :
 }
 
 # GET : Get API (Requires authentication and CIRCUS_ADMIN authorization)
-# Sends all the privious request where collison occured.
+# Sends all the previous request where collision occurred.
 Endpoint: http://localhost:8080/get-collisions
 Username: ben
 Password: ben

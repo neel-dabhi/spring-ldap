@@ -1,10 +1,10 @@
 package com.ndabhi.kangaroo.Model;
 
 public class RequestModel {
-    Integer x1;
-    Integer v1;
-    Integer x2;
-    Integer v2;
+    private Integer x1;
+    private Integer v1;
+    private Integer x2;
+    private Integer v2;
 
     public RequestModel(Integer x1, Integer x2, Integer v1, Integer v2) {
         setX1(x1);

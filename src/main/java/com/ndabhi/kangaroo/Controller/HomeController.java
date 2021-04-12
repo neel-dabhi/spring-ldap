@@ -19,7 +19,7 @@ public class HomeController {
     }
 
 
-    @GetMapping(value = "/get-collisions", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/collisions", produces = MediaType.APPLICATION_JSON_VALUE)
     public List getDBData() {
         return DBService.getInstance().readDB();
     }

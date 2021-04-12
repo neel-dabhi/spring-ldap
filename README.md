@@ -1,5 +1,7 @@
 # spring-ldap
 
+A local MySQL DB needs to be setup, in order to run.
+
 ## :information_source: How To Use
 
 Clone and Run application.

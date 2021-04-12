@@ -32,12 +32,12 @@ public class CollisionService {
 
         } else if (isV1Greater && isRemainderZero) {
 
-            int pos = getPosition(requestModel);
+            int position = getPosition(requestModel);
 
-            if (writeDB(requestModel,pos)){
-                return new ResponseModel(requestModel,pos, "Kangaroo Collides");
+            if (writeDB(requestModel,position)){
+                return new ResponseModel(requestModel,position, "Kangaroo Collides");
             }else {
-                return new ResponseModel(new RequestModel(0,0,0,0),pos, "Problem Writing Obj to DB");
+                return new ResponseModel(new RequestModel(0,0,0,0),position, "Problem Writing Obj to DB");
             }
         } else {
             return new ResponseModel(requestModel,-1, "Kangaroo Does Not Collide");

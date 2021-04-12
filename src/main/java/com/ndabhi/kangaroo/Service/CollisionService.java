@@ -14,9 +14,9 @@ public class CollisionService {
         Integer x2 = requestModel.getX2();
         Integer v2 = requestModel.getV2();
 
-        boolean isEqualVelocity = requestModel.getV1().equals(requestModel.getV2());
-        boolean isRemainderZero = (requestModel.getX2() - requestModel.getX1()) % (requestModel.getV1() - requestModel.getV2()) == 0;
-        boolean isV1Greater = requestModel.getV1() > requestModel.getV2();
+        boolean isEqualVelocity = v1.equals(v2);
+        boolean isRemainderZero = (x2 - x1) % (v1 - v2) == 0;
+        boolean isV1Greater = v1 > v2;
 
         if (isEqualVelocity) {
             boolean isSameStartPoint = x1.equals(x2);
@@ -32,7 +32,7 @@ public class CollisionService {
 
         } else if (isV1Greater && isRemainderZero) {
 
-            int pos = getPosition(x1,x2,v1,v2);
+            int pos = getPosition(requestModel);
 
             if (writeDB(requestModel,pos)){
                 return new ResponseModel(requestModel,pos, "Kangaroo Collides");
@@ -48,7 +48,11 @@ public class CollisionService {
         return  DBService.getInstance().writeDB(requestModel, pos);
     }
 
-    private int getPosition(Integer x1, Integer x2, Integer v1, Integer v2){
+    private int getPosition(RequestModel requestModel){
+        Integer x1 = requestModel.getX1();
+        Integer v1 = requestModel.getV1();
+        Integer x2 = requestModel.getX2();
+        Integer v2 = requestModel.getV2();
         return ((x2 - x1) / (v1 - v2) * v1 ) + x1;
     }
 }

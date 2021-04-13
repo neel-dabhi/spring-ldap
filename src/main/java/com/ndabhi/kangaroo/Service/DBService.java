@@ -16,12 +16,13 @@ import java.util.List;
 public class DBService {
     private static final DBService dbHelper = new DBService();
 
-    private DBService(){}
+    private DBService() {
+    }
 
     EntityManagerFactory entityManagerFactory = null;
     EntityManager entityManager = null;
 
-    public boolean writeDB(ReqResModel reqResModel){
+    public boolean writeDB(ReqResModel reqResModel) {
         Integer x1 = reqResModel.getX1();
         Integer v1 = reqResModel.getV1();
         Integer x2 = reqResModel.getX2();
@@ -45,12 +46,12 @@ public class DBService {
             entityManager.getTransaction().commit();
             return true;
 
-        }catch (Exception e){
-            if (null != entityManager){
+        } catch (Exception e) {
+            if (null != entityManager) {
                 entityManager.getTransaction().rollback();
             }
-        }finally {
-            if (null != entityManager){
+        } finally {
+            if (null != entityManager) {
                 entityManager.close();
             }
         }
@@ -58,7 +59,7 @@ public class DBService {
     }
 
 
-    public List readDB(){
+    public List readDB() {
         entityManagerFactory = Persistence.createEntityManagerFactory("org.hibernate.rbc.kangaroo");
         entityManager = entityManagerFactory.createEntityManager();
         Query query = entityManager.createQuery("SELECT c FROM CollisionsDAO c");
@@ -66,13 +67,13 @@ public class DBService {
     }
 
 
-    private String generateTimeStamp(){
+    private String generateTimeStamp() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         return dtf.format(now);
     }
 
-    public static DBService getInstance(){
+    public static DBService getInstance() {
         return dbHelper;
     }
 }

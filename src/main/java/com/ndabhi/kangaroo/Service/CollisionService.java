@@ -1,11 +1,13 @@
 package com.ndabhi.kangaroo.Service;
 
 import com.ndabhi.kangaroo.Model.ReqResModel;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 
 public class CollisionService {
 
-    public ReqResModel getCollisionPoint(ReqResModel reqResModel){
+    public ReqResModel getCollisionPoint(ReqResModel reqResModel) {
         Integer x1 = reqResModel.getX1();
         Integer v1 = reqResModel.getV1();
         Integer x2 = reqResModel.getX2();
@@ -21,13 +23,12 @@ public class CollisionService {
             if (isSameStartPoint) {
                 reqResModel.setCollision(x1);
 
-                if (writeDB(reqResModel)){
+                if (writeDB(reqResModel)) {
                     reqResModel.setMessage("Kangaroo Collides");
-                    return reqResModel;
-                }else {
-                    reqResModel.setMessage("Problem Writing Obj to DB");
-                    return reqResModel;
+                } else {
+                    throw getResponseStatusException("Problem Writing Obj to DB");
                 }
+                return reqResModel;
             }
             reqResModel.setCollision(-1);
             reqResModel.setMessage("Kangaroo Does Not Collide");
@@ -37,30 +38,32 @@ public class CollisionService {
 
             reqResModel.setCollision(getPosition(reqResModel));
 
-            if (writeDB(reqResModel)){
+            if (writeDB(reqResModel)) {
                 reqResModel.setMessage("Kangaroo Collides");
-                return reqResModel;
-            }else {
-                reqResModel.setMessage("Problem Writing Obj to DB");
-                return reqResModel;
+            } else {
+                throw getResponseStatusException("Problem Writing Obj to DB");
             }
+            return reqResModel;
         } else {
             reqResModel.setCollision(-1);
             reqResModel.setMessage("Kangaroo Does Not Collide");
             return reqResModel;
-
         }
     }
 
-    private boolean writeDB(ReqResModel reqResModel){
-        return  DBService.getInstance().writeDB(reqResModel);
+    private boolean writeDB(ReqResModel reqResModel) {
+        return DBService.getInstance().writeDB(reqResModel);
     }
 
-    private int getPosition(ReqResModel reqResModel){
+    private int getPosition(ReqResModel reqResModel) {
         Integer x1 = reqResModel.getX1();
         Integer v1 = reqResModel.getV1();
         Integer x2 = reqResModel.getX2();
         Integer v2 = reqResModel.getV2();
-        return ((x2 - x1) / (v1 - v2) * v1 ) + x1;
+        return ((x2 - x1) / (v1 - v2) * v1) + x1;
+    }
+
+    private ResponseStatusException getResponseStatusException(String message) {
+        return new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, message);
     }
 }

@@ -1,18 +1,15 @@
 package com.ndabhi.kangaroo.Service;
 
-import com.ndabhi.kangaroo.Model.RequestModel;
-import com.ndabhi.kangaroo.Model.ResponseModel;
-
-import javax.persistence.criteria.CriteriaBuilder;
+import com.ndabhi.kangaroo.Model.ReqResModel;
 
 
 public class CollisionService {
 
-    public ResponseModel getCollisionPoint(RequestModel requestModel){
-        Integer x1 = requestModel.getX1();
-        Integer v1 = requestModel.getV1();
-        Integer x2 = requestModel.getX2();
-        Integer v2 = requestModel.getV2();
+    public ReqResModel getCollisionPoint(ReqResModel reqResModel){
+        Integer x1 = reqResModel.getX1();
+        Integer v1 = reqResModel.getV1();
+        Integer x2 = reqResModel.getX2();
+        Integer v2 = reqResModel.getV2();
 
         boolean isEqualVelocity = v1.equals(v2);
         boolean isRemainderZero = (x2 - x1) % (v1 - v2) == 0;
@@ -22,37 +19,48 @@ public class CollisionService {
             boolean isSameStartPoint = x1.equals(x2);
 
             if (isSameStartPoint) {
-                if (writeDB(requestModel, x1)){
-                    return new ResponseModel(requestModel,x1, "Kangaroo Collides");
+                reqResModel.setCollision(x1);
+
+                if (writeDB(reqResModel)){
+                    reqResModel.setMessage("Kangaroo Collides");
+                    return reqResModel;
                 }else {
-                    return new ResponseModel(new RequestModel(0,0,0,0),x1, "Problem Writing Obj to DB");
+                    reqResModel.setMessage("Problem Writing Obj to DB");
+                    return reqResModel;
                 }
             }
-            return new ResponseModel(requestModel,-1,"Kangaroo Does Not Collide");
+            reqResModel.setCollision(-1);
+            reqResModel.setMessage("Kangaroo Does Not Collide");
+            return reqResModel;
 
         } else if (isV1Greater && isRemainderZero) {
 
-            int position = getPosition(requestModel);
+            reqResModel.setCollision(getPosition(reqResModel));
 
-            if (writeDB(requestModel,position)){
-                return new ResponseModel(requestModel,position, "Kangaroo Collides");
+            if (writeDB(reqResModel)){
+                reqResModel.setMessage("Kangaroo Collides");
+                return reqResModel;
             }else {
-                return new ResponseModel(new RequestModel(0,0,0,0),position, "Problem Writing Obj to DB");
+                reqResModel.setMessage("Problem Writing Obj to DB");
+                return reqResModel;
             }
         } else {
-            return new ResponseModel(requestModel,-1, "Kangaroo Does Not Collide");
+            reqResModel.setCollision(-1);
+            reqResModel.setMessage("Kangaroo Does Not Collide");
+            return reqResModel;
+
         }
     }
 
-    private boolean writeDB(RequestModel requestModel, Integer pos){
-        return  DBService.getInstance().writeDB(requestModel, pos);
+    private boolean writeDB(ReqResModel reqResModel){
+        return  DBService.getInstance().writeDB(reqResModel);
     }
 
-    private int getPosition(RequestModel requestModel){
-        Integer x1 = requestModel.getX1();
-        Integer v1 = requestModel.getV1();
-        Integer x2 = requestModel.getX2();
-        Integer v2 = requestModel.getV2();
+    private int getPosition(ReqResModel reqResModel){
+        Integer x1 = reqResModel.getX1();
+        Integer v1 = reqResModel.getV1();
+        Integer x2 = reqResModel.getX2();
+        Integer v2 = reqResModel.getV2();
         return ((x2 - x1) / (v1 - v2) * v1 ) + x1;
     }
 }

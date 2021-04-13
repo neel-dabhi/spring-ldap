@@ -1,6 +1,15 @@
 package com.ndabhi.kangaroo.Model;
 
-public class ResponseModel {
+public class ReqResModel {
+    public ReqResModel(){}
+
+    public ReqResModel(Integer x1, Integer v1, Integer x2, Integer v2) {
+        this.setX1(x1);
+        this.setV1(v1);
+        this.setX2(x2);
+        this.setV2(v2);
+    }
+
     private Integer x1;
     private Integer v1;
     private Integer x2;
@@ -8,25 +17,13 @@ public class ResponseModel {
     private Integer collision;
     private String message;
 
-    public ResponseModel(RequestModel requestModel, Integer position, String message) {
-        setCollision(position);
-        setMessage(message);
-        setX1(requestModel.getX1());
-        setV1(requestModel.getV1());
-        setX2(requestModel.getX2());
-        setV2(requestModel.getV2());
-    }
 
     public Integer getX1() {
         return x1;
     }
 
     public void setX1(Integer x1) {
-        if (null == x1 || x1 < 0) {
-            this.x1 = 0;
-        } else {
-            this.x1 = x1;
-        }
+        this.x1 = validate(x1);
     }
 
     public Integer getX2() {
@@ -34,11 +31,7 @@ public class ResponseModel {
     }
 
     public void setX2(Integer x2) {
-        if (null == x2 || x2 < 0) {
-            this.x2 = 0;
-        } else {
-            this.x2 = x2;
-        }
+        this.x2 = validate(x2);
     }
 
     public Integer getV1() {
@@ -46,11 +39,7 @@ public class ResponseModel {
     }
 
     public void setV1(Integer v1) {
-        if (null == v1 || v1 < 0) {
-            this.v1 = 0;
-        } else {
-            this.v1 = v1;
-        }
+        this.v1 = validate(v1);
     }
 
     public Integer getV2() {
@@ -58,11 +47,7 @@ public class ResponseModel {
     }
 
     public void setV2(Integer v2) {
-        if (null == v2 || v2 < 0) {
-            this.v2 = 0;
-        } else {
-            this.v2 = v2;
-        }
+        this.v2 = validate(v2);
     }
 
     public Integer getCollision() {
@@ -86,6 +71,15 @@ public class ResponseModel {
             this.message = "Problem Setting Message";
         }else {
             this.message = message;
+        }
+    }
+
+    private int validate(Integer x){
+        if (null == x || x< 0)
+        {
+            return 0;
+        }else {
+            return x;
         }
     }
 

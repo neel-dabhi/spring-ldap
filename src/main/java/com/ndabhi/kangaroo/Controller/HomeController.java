@@ -2,8 +2,7 @@ package com.ndabhi.kangaroo.Controller;
 
 import com.ndabhi.kangaroo.Service.CollisionService;
 import com.ndabhi.kangaroo.Service.DBService;
-import com.ndabhi.kangaroo.Model.RequestModel;
-import com.ndabhi.kangaroo.Model.ResponseModel;
+import com.ndabhi.kangaroo.Model.ReqResModel;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +25,8 @@ public class HomeController {
 
 
     @PostMapping(value = "/submit")
-    public ResponseModel getCollisionPoint(@RequestBody RequestModel requestModel) {
+    public ReqResModel getCollisionPoint(@RequestBody ReqResModel reqResModel) {
         CollisionService collisionService = new CollisionService();
-        return collisionService.getCollisionPoint(requestModel);
+        return collisionService.getCollisionPoint(reqResModel);
     }
 }

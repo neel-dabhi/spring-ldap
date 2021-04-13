@@ -9,9 +9,6 @@ public class CollisionsDAO {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(name = "time_stamp")
-    private String timeStamp;
-
     @Column(name = "x1")
     private Integer x1;
 
@@ -26,6 +23,9 @@ public class CollisionsDAO {
 
     @Column(name = "position")
     private Integer position;
+
+    @Column(name = "time_stamp")
+    private String timeStamp;
 
     public int getId() {
         return id;

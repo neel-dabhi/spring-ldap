@@ -2,7 +2,7 @@ package com.ndabhi.kangaroo.Service;
 
 
 import com.ndabhi.kangaroo.Model.CollisionsDAO;
-import com.ndabhi.kangaroo.Model.RequestModel;
+import com.ndabhi.kangaroo.Model.ReqResModel;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,11 +21,12 @@ public class DBService {
     EntityManagerFactory entityManagerFactory = null;
     EntityManager entityManager = null;
 
-    public boolean writeDB(RequestModel requestModel, Integer pos){
-        Integer x1 = requestModel.getX1();
-        Integer v1 = requestModel.getV1();
-        Integer x2 = requestModel.getX2();
-        Integer v2 = requestModel.getV2();
+    public boolean writeDB(ReqResModel reqResModel){
+        Integer x1 = reqResModel.getX1();
+        Integer v1 = reqResModel.getV1();
+        Integer x2 = reqResModel.getX2();
+        Integer v2 = reqResModel.getV2();
+        Integer pos = reqResModel.getCollision();
         CollisionsDAO collisionsDAO;
         try {
             entityManagerFactory = Persistence.createEntityManagerFactory("org.hibernate.rbc.kangaroo");

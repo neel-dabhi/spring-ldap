@@ -18,7 +18,7 @@ public class CollisionService {
         boolean isEqualVelocity = v1.equals(v2);
         boolean isRemainderZero = getRemainder(reqResModel);
         boolean isV1Greater = v1 > v2;
-
+        System.out.println(isV1Greater);
 
         if (isEqualVelocity) {
             boolean isSameStartPoint = x1.equals(x2);
@@ -27,14 +27,14 @@ public class CollisionService {
                 reqResModel.setCollision(x1);
 
                 if (saveCollision(reqResModel)) {
-                    reqResModel.setMessage("Kangaroo Collides");
+                    reqResModel.setMessage("Kangaroo Collides (same start pos)");
                 } else {
                     throw getResponseStatusException("Problem Writing Obj to DB");
                 }
                 return reqResModel;
             }
             reqResModel.setCollision(-1);
-            reqResModel.setMessage("Kangaroo Does Not Collide");
+            reqResModel.setMessage("Kangaroo Does Not Collide (equal velocity)");
             return reqResModel;
 
         } else if (isV1Greater && isRemainderZero) {
@@ -75,10 +75,10 @@ public class CollisionService {
         Integer v1 = reqResModel.getV1();
         Integer x2 = reqResModel.getX2();
         Integer v2 = reqResModel.getV2();
+
         boolean remainder;
         try {
-            remainder = (x2 - x1) % (v1 - v2) == 0;
-
+            remainder = ((x2 - x1) % (v1 - v2)) == 0;
         } catch (ArithmeticException e) {
             throw getResponseStatusException(e.getMessage());
         }

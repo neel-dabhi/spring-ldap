@@ -102,8 +102,8 @@ public class CollisionService {
         }
     }
 
-    private boolean isNull(Object o) {
-        if (null == o) {
+    private boolean isNull(Integer integer) {
+        if (null == integer) {
             return true;
         } else {
             return false;

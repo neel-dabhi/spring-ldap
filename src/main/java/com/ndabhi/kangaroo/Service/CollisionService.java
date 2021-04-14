@@ -26,7 +26,7 @@ public class CollisionService {
             if (isSameStartPoint) {
                 reqResModel.setCollision(x1);
 
-                if (writeDB(reqResModel)) {
+                if (saveCollision(reqResModel)) {
                     reqResModel.setMessage("Kangaroo Collides");
                 } else {
                     throw getResponseStatusException("Problem Writing Obj to DB");
@@ -41,7 +41,7 @@ public class CollisionService {
 
             reqResModel.setCollision(getPosition(reqResModel));
 
-            if (writeDB(reqResModel)) {
+            if (saveCollision(reqResModel)) {
                 reqResModel.setMessage("Kangaroo Collides");
             } else {
                 throw getResponseStatusException("Problem Writing Obj to DB");
@@ -54,7 +54,7 @@ public class CollisionService {
         }
     }
 
-    private boolean writeDB(ReqResModel reqResModel) {
+    private boolean saveCollision(ReqResModel reqResModel) {
         return DBService.getInstance().writeDB(reqResModel);
     }
 
@@ -70,44 +70,42 @@ public class CollisionService {
         return new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, message);
     }
 
-    private boolean getRemainder(ReqResModel reqResModel){
+    private boolean getRemainder(ReqResModel reqResModel) {
         Integer x1 = reqResModel.getX1();
         Integer v1 = reqResModel.getV1();
         Integer x2 = reqResModel.getX2();
         Integer v2 = reqResModel.getV2();
-        boolean result;
+        boolean remainder;
         try {
-            result  = (x2 - x1) % (v1 - v2) == 0;
+            remainder = (x2 - x1) % (v1 - v2) == 0;
 
-        }catch (ArithmeticException e){
+        } catch (ArithmeticException e) {
             throw getResponseStatusException(e.getMessage());
         }
-        return result;
-
+        return remainder;
     }
 
-    private void checkNullObj(ReqResModel reqResModel){
+    private void checkNullObj(ReqResModel reqResModel) {
         Integer x1 = reqResModel.getX1();
         Integer v1 = reqResModel.getV1();
         Integer x2 = reqResModel.getX2();
         Integer v2 = reqResModel.getV2();
 
-        if (isNull(x1)){
+        if (isNull(x1)) {
             throw getResponseStatusException("x1 can't be null");
-        }else if (isNull(v1)){
+        } else if (isNull(v1)) {
             throw getResponseStatusException("v1 can't be null");
-        }else if (isNull(x2)){
+        } else if (isNull(x2)) {
             throw getResponseStatusException("x2 can't be null");
-        }else if (isNull(v2)){
+        } else if (isNull(v2)) {
             throw getResponseStatusException("v2 can't be null");
         }
     }
 
-    private boolean isNull(Object o){
-        if (null == o)
-        {
+    private boolean isNull(Object o) {
+        if (null == o) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
